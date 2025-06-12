@@ -1,0 +1,89 @@
+--- BWAF Training Log Initialized: 2025-06-04 18:28:51.819328 ---
+[2025-06-04 18:28:51] Log file started at: results_bwaf_v3/training_log_bwaf.txt
+[2025-06-04 18:28:51] Using device: cpu
+[2025-06-04 18:28:51] Random Seed: 42
+[2025-06-04 18:28:57] --- Starting BWAF Multi-Modal Promoter Prediction Workflow ---
+[2025-06-04 18:28:57] Interactive environment detected, using default args.
+[2025-06-04 18:28:57] Runtime Config: Epochs=10, Batch=16, LR=0.0005, Embed=64, Dropout=0.3, GAT ThrFactor=2.5, FusionHidden=128
+[2025-06-04 18:28:57] 
+--- Step 1: Loading Sequence Data ---
+[2025-06-04 18:28:57] Loading sequences from data/raw/human_genome_annotation/updated_promoter_features_clean.csv...
+[2025-06-04 18:28:57] Sequence QC for updated_promoter_features_clean.csv: Total initial: 20028. Removed 0 (with 'N'). Removed 0 (not 2000bp). Final: 20028.
+[2025-06-04 18:28:57] Loaded and filtered 20028 sequences from updated_promoter_features_clean.csv in 0.79s.
+[2025-06-04 18:28:57] Loading sequences from data/raw/human_genome_annotation/updated_non_promoter_sequences.csv...
+[2025-06-04 18:28:58] Sequence QC for updated_non_promoter_sequences.csv: Total initial: 20028. Removed 0 (with 'N'). Removed 0 (not 2000bp). Final: 20028.
+[2025-06-04 18:28:58] Loaded and filtered 20028 sequences from updated_non_promoter_sequences.csv in 0.73s.
+[2025-06-04 18:28:58] Total sequences loaded and QC'd: 40056
+[2025-06-04 18:28:58] Unique master gene IDs for GAT/Prior alignment: 20028
+[2025-06-04 18:28:58] 
+--- Step 2: Loading and Processing Priors ---
+[2025-06-04 18:28:58] Loading priors from data/raw/human_genome_annotation/biological_prior_for_transformer_branch.csv...
+[2025-06-04 18:28:58] Found 11 prior count columns.
+[2025-06-04 18:28:58] Processed priors for 20028 genes in 0.17s.
+[2025-06-04 18:28:58] Prior dimension: 11. Priors prepared for 40056 dataset samples.
+[2025-06-04 18:28:58] 
+--- Step 3: Encoding Sequences ---
+[2025-06-04 18:29:16] 
+--- Step 4: Processing GAT Data ---
+[2025-06-04 18:29:16] Preprocessing GAT data: data/raw/gene_interaction_network/GRAND_networks -> data/preprocessed/gat_normalized
+[2025-06-04 18:29:16] Processed GAT files found. Verifying TF/Gene alignment...
+[2025-06-04 18:29:20] GAT preprocessing complete. Master TFs: 644, Aligned Genes: 20028
+[2025-06-04 18:29:20] Loading processed GAT data from data/preprocessed/gat_normalized (aligning to 20028 genes, 644 TFs)...
+[2025-06-04 18:31:55] Loaded 36 GAT matrices, created initial node features in 154.72s.
+[2025-06-04 18:31:55] Initial GAT node features (X_node). Shape: torch.Size([20028, 644])
+[2025-06-04 18:31:55] GAT Edge Indices (TF Co-reg Gene-Gene, ThrFactor: 2.5, MaxEdges: 1000000)...
+[2025-06-04 18:31:56] Finished processing 36 Gene-Gene edge indices.
+[2025-06-04 18:31:56] 
+--- Step 5: Creating Datasets and DataLoaders ---
+[2025-06-04 18:31:56] Dataset split: Train=28040, Val=6008, Test=6008
+[2025-06-04 18:31:56] 
+--- Step 6: Initializing BWAF Model ---
+[2025-06-04 18:31:56] Model Initialized. Trainable Params: 292,601
+[2025-06-04 18:31:56] 
+--- Step 7: Precomputing GAT Output ---
+[2025-06-04 18:31:56] Precomputing GAT branch output...
+[2025-06-04 18:32:15] GAT output precomputed on cpu. Shape: torch.Size([20028, 64]). Time: 19.13s.
+[2025-06-04 18:32:15] 
+--- Step 8: Training Model ---
+[2025-06-04 18:32:15] --- Starting Training for 10 Epochs ---
+[2025-06-05 02:01:46] E 1/10 - TrL: 0.4090, VaL: 0.1203, Dur: 26970.47s, LR: 5.00e-04
+[2025-06-05 02:01:46] Saved best model (Val Loss: 0.1203)
+[2025-06-05 09:29:27] E 2/10 - TrL: 0.0807, VaL: 0.0301, Dur: 26860.80s, LR: 5.00e-04
+[2025-06-05 09:29:27] Saved best model (Val Loss: 0.0301)
+[2025-06-05 17:03:21] E 3/10 - TrL: 0.0363, VaL: 0.0124, Dur: 27234.67s, LR: 5.00e-04
+[2025-06-05 17:03:21] Saved best model (Val Loss: 0.0124)
+[2025-06-06 00:29:27] E 4/10 - TrL: 0.0250, VaL: 0.0123, Dur: 26765.42s, LR: 5.00e-04
+[2025-06-06 00:29:27] Saved best model (Val Loss: 0.0123)
+[2025-06-06 07:49:49] E 5/10 - TrL: 0.0205, VaL: 0.0089, Dur: 26422.10s, LR: 5.00e-04
+[2025-06-06 07:49:49] Saved best model (Val Loss: 0.0089)
+[2025-06-06 15:15:55] E 6/10 - TrL: 0.0167, VaL: 0.0086, Dur: 26765.95s, LR: 5.00e-04
+[2025-06-06 15:15:55] Saved best model (Val Loss: 0.0086)
+[2025-06-06 23:00:55] E 7/10 - TrL: 0.0160, VaL: 0.0109, Dur: 27900.61s, LR: 5.00e-04
+[2025-06-07 07:22:37] E 8/10 - TrL: 0.0135, VaL: 0.0060, Dur: 30101.59s, LR: 5.00e-04
+[2025-06-07 07:22:37] Saved best model (Val Loss: 0.0060)
+[2025-06-07 16:06:44] E 9/10 - TrL: 0.0115, VaL: 0.0073, Dur: 31446.88s, LR: 5.00e-04
+[2025-06-08 00:46:28] E 10/10 - TrL: 0.0112, VaL: 0.0113, Dur: 31183.75s, LR: 5.00e-04
+[2025-06-08 00:46:28] Saved loss plot to results_bwaf_v3/training_validation_loss_bwaf.png
+[2025-06-08 00:46:28] --- Training Finished --- Best Val Loss: 0.0060
+[2025-06-08 00:46:28] 
+--- Step 9: Evaluating Best Model ---
+[2025-06-08 00:46:28] Loading best model state from 'results_bwaf_v3/best_promoter_model_bwaf.pth' for final evaluation.
+[2025-06-08 00:46:28] --- Evaluating on test set (376 batches) ---
+[2025-06-08 01:14:48] 
+--- Test Set Results ---
+[2025-06-08 01:14:48] LOSS: 0.0060
+[2025-06-08 01:14:48] ACC: 0.9987
+[2025-06-08 01:14:48] PREC: 1.0000
+[2025-06-08 01:14:48] REC: 0.9973
+[2025-06-08 01:14:48] SPEC: 1.0000
+[2025-06-08 01:14:48] F1: 0.9987
+[2025-06-08 01:14:48] AUC: 0.9999
+[2025-06-08 01:14:48] TP: 3010
+[2025-06-08 01:14:48] FP: 0
+[2025-06-08 01:14:48] TN: 2990
+[2025-06-08 01:14:48] FN: 8
+[2025-06-08 01:14:48] Saved CM to results_bwaf_v3/confusion_matrix_bwaf.png
+[2025-06-08 01:14:48] Saved CM to results_bwaf_v3/confusion_matrix_bwaf_norm.png
+[2025-06-08 01:14:48] Saved test results to results_bwaf_v3/test_set_evaluation_results_bwaf.csv
+[2025-06-08 01:14:48] 
+--- Workflow Completed Successfully in 283551.59 seconds (78.76 hours) ---
