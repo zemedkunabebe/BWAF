@@ -1,0 +1,138 @@
+--- K-mer Baseline Log Initialized: 2025-06-19 13:18:59.634441 ---
+[2025-06-19 13:18:59] K-mer Baseline Log started at: results_msBERT_replication/training_log_kmer_baseline.txt
+[2025-06-19 13:18:59] Using device: cpu for k-mer operations.
+[2025-06-19 13:18:59] --- Starting msBERT-Promoter Replication Workflow (PID: 3459) ---
+[2025-06-19 13:18:59] K-mer Baseline Config: Epochs=10, Batch=32, LR=0.0001, ForceRebuild=False
+[2025-06-19 13:18:59] 
+--- Step 1: Loading Raw Sequence Data ---
+[2025-06-19 13:18:59] Loading RAW sequences from ./data/raw/human_genome_annotation/updated_promoter_features_clean.csv (expected len: 2000)...
+[2025-06-19 13:19:00] QC updated_promoter_features_clean.csv: Initial Raw=20028. After N-rem=20028. Len-rem:0. Final:20028.
+[2025-06-19 13:19:00] Loaded 20028 RAW sequences from updated_promoter_features_clean.csv in 0.71s.
+[2025-06-19 13:19:00] Loading RAW sequences from ./data/raw/human_genome_annotation/updated_non_promoter_sequences.csv (expected len: 2000)...
+[2025-06-19 13:19:01] QC updated_non_promoter_sequences.csv: Initial Raw=20028. After N-rem=20028. Len-rem:0. Final:20028.
+[2025-06-19 13:19:01] Loaded 20028 RAW sequences from updated_non_promoter_sequences.csv in 0.64s.
+[2025-06-19 13:19:01] Total raw sequences for k-mer models: 40056
+[2025-06-19 13:19:01] 
+--- Step 2: Building K-mer Vocabularies ---
+[2025-06-19 13:19:01] Building vocabulary for k=3 using stride=1...
+[2025-06-19 13:19:25] Vocab for k=3 size: 66.
+[2025-06-19 13:19:25] Building vocabulary for k=4 using stride=1...
+[2025-06-19 13:19:49] Vocab for k=4 size: 258.
+[2025-06-19 13:19:49] Building vocabulary for k=5 using stride=1...
+[2025-06-19 13:20:15] Vocab for k=5 size: 1026.
+[2025-06-19 13:20:15] Building vocabulary for k=6 using stride=1...
+[2025-06-19 13:20:42] Vocab for k=6 size: 4098.
+[2025-06-19 13:20:43] 
+--- Step 3: Calculating Max K-mer Sequence Lengths ---
+[2025-06-19 13:20:57] Max k-mer seq length for k=3: 1998
+[2025-06-19 13:21:11] Max k-mer seq length for k=4: 1997
+[2025-06-19 13:21:25] Max k-mer seq length for k=5: 1996
+[2025-06-19 13:21:40] Max k-mer seq length for k=6: 1995
+[2025-06-19 13:21:40] 
+--- Step 4: Training/Loading Individual K-mer Models ---
+[2025-06-19 13:21:40] K-mer Data Split: Train=28040, Val=6008, Test=6008
+[2025-06-19 13:21:40] 
+--- Processing for k=3 ---
+[2025-06-19 13:21:41] Resuming k=3 from checkpoint: results_msBERT_replication/checkpoints_k3/checkpoint_epoch_003.pth
+[2025-06-19 13:21:41] Resumed from epoch 3. Best Val Loss: 0.4831
+[2025-06-19 13:21:41] --- Training KmerTransformer (k=3) from epoch 4 to 9 ---
+[2025-06-19 20:22:21] k=3 E 5/10 - TrL: 0.4937, VaL: 0.4784, Dur: 25240.26s, LR: 1.00e-04
+[2025-06-19 20:22:21] k=3 Saved NEW BEST model (Val Loss: 0.4784) to results_msBERT_replication/best_kmer_model_k3.pth
+[2025-06-20 03:07:35] k=3 E 6/10 - TrL: 0.4910, VaL: 0.4741, Dur: 24314.11s, LR: 1.00e-04
+[2025-06-20 03:07:35] k=3 Saved NEW BEST model (Val Loss: 0.4741) to results_msBERT_replication/best_kmer_model_k3.pth
+[2025-06-20 10:02:59] k=3 E 7/10 - TrL: 0.4883, VaL: 0.5122, Dur: 24923.51s, LR: 1.00e-04
+[2025-06-20 16:52:46] k=3 E 8/10 - TrL: 0.4839, VaL: 0.4696, Dur: 24587.20s, LR: 1.00e-04
+[2025-06-20 16:52:46] k=3 Saved NEW BEST model (Val Loss: 0.4696) to results_msBERT_replication/best_kmer_model_k3.pth
+[2025-06-20 23:49:10] k=3 E 9/10 - TrL: 0.4822, VaL: 0.4851, Dur: 24984.03s, LR: 1.00e-04
+[2025-06-21 06:36:15] k=3 E 10/10 - TrL: 0.4783, VaL: 0.4966, Dur: 24425.07s, LR: 1.00e-04
+[2025-06-21 06:36:17] k=3 Saved final loss plot to results_msBERT_replication/loss_kmer_k3.png
+[2025-06-21 06:36:17] --- k=3 Training Finished/Resumed --- Best Val Loss: 0.4696
+[2025-06-21 06:36:17] 
+--- Processing for k=4 ---
+[2025-06-21 06:36:17] --- Training KmerTransformer (k=4) from epoch 0 to 9 ---
+[2025-06-21 13:22:39] k=4 E 1/10 - TrL: 0.6056, VaL: 0.5360, Dur: 24382.13s, LR: 1.00e-04
+[2025-06-21 13:22:39] k=4 Saved NEW BEST model (Val Loss: 0.5360) to results_msBERT_replication/best_kmer_model_k4.pth
+[2025-06-21 20:03:34] k=4 E 2/10 - TrL: 0.5302, VaL: 0.5077, Dur: 24054.65s, LR: 1.00e-04
+[2025-06-21 20:03:34] k=4 Saved NEW BEST model (Val Loss: 0.5077) to results_msBERT_replication/best_kmer_model_k4.pth
+[2025-06-22 02:44:17] k=4 E 3/10 - TrL: 0.5145, VaL: 0.5036, Dur: 24042.68s, LR: 1.00e-04
+[2025-06-22 02:44:17] k=4 Saved NEW BEST model (Val Loss: 0.5036) to results_msBERT_replication/best_kmer_model_k4.pth
+[2025-06-22 09:24:16] k=4 E 4/10 - TrL: 0.5038, VaL: 0.4891, Dur: 23999.41s, LR: 1.00e-04
+[2025-06-22 09:24:16] k=4 Saved NEW BEST model (Val Loss: 0.4891) to results_msBERT_replication/best_kmer_model_k4.pth
+[2025-06-22 17:49:20] k=4 E 5/10 - TrL: 0.4999, VaL: 0.4927, Dur: 30304.26s, LR: 1.00e-04
+[2025-06-23 02:19:40] k=4 E 6/10 - TrL: 0.4960, VaL: 0.4901, Dur: 30619.89s, LR: 1.00e-04
+[2025-06-23 09:00:34] k=4 E 7/10 - TrL: 0.4902, VaL: 0.4816, Dur: 24054.04s, LR: 1.00e-04
+[2025-06-23 09:00:34] k=4 Saved NEW BEST model (Val Loss: 0.4816) to results_msBERT_replication/best_kmer_model_k4.pth
+[2025-06-23 17:19:59] k=4 E 8/10 - TrL: 0.4871, VaL: 0.4769, Dur: 29964.41s, LR: 1.00e-04
+[2025-06-23 17:19:59] k=4 Saved NEW BEST model (Val Loss: 0.4769) to results_msBERT_replication/best_kmer_model_k4.pth
+[2025-06-23 23:58:56] k=4 E 9/10 - TrL: 0.4862, VaL: 0.4794, Dur: 23937.15s, LR: 1.00e-04
+[2025-06-24 06:38:23] k=4 E 10/10 - TrL: 0.4825, VaL: 0.4789, Dur: 23966.86s, LR: 1.00e-04
+[2025-06-24 06:38:24] k=4 Saved final loss plot to results_msBERT_replication/loss_kmer_k4.png
+[2025-06-24 06:38:24] --- k=4 Training Finished/Resumed --- Best Val Loss: 0.4769
+[2025-06-24 06:38:24] 
+--- Processing for k=5 ---
+[2025-06-24 06:38:24] --- Training KmerTransformer (k=5) from epoch 0 to 9 ---
+[2025-06-24 14:26:04] k=5 E 1/10 - TrL: 0.6119, VaL: 0.5528, Dur: 28059.74s, LR: 1.00e-04
+[2025-06-24 14:26:04] k=5 Saved NEW BEST model (Val Loss: 0.5528) to results_msBERT_replication/best_kmer_model_k5.pth
+[2025-06-24 21:14:21] k=5 E 2/10 - TrL: 0.5393, VaL: 0.5277, Dur: 24496.94s, LR: 1.00e-04
+[2025-06-24 21:14:21] k=5 Saved NEW BEST model (Val Loss: 0.5277) to results_msBERT_replication/best_kmer_model_k5.pth
+[2025-06-25 03:58:51] k=5 E 3/10 - TrL: 0.5250, VaL: 0.5122, Dur: 24269.64s, LR: 1.00e-04
+[2025-06-25 03:58:51] k=5 Saved NEW BEST model (Val Loss: 0.5122) to results_msBERT_replication/best_kmer_model_k5.pth
+[2025-06-25 10:43:38] k=5 E 4/10 - TrL: 0.5135, VaL: 0.5142, Dur: 24287.68s, LR: 1.00e-04
+[2025-06-25 17:39:01] k=5 E 5/10 - TrL: 0.5062, VaL: 0.4964, Dur: 24923.06s, LR: 1.00e-04
+[2025-06-25 17:39:01] k=5 Saved NEW BEST model (Val Loss: 0.4964) to results_msBERT_replication/best_kmer_model_k5.pth
+[2025-06-26 00:24:19] k=5 E 6/10 - TrL: 0.4974, VaL: 0.4877, Dur: 24317.79s, LR: 1.00e-04
+[2025-06-26 00:24:19] k=5 Saved NEW BEST model (Val Loss: 0.4877) to results_msBERT_replication/best_kmer_model_k5.pth
+[2025-06-26 07:08:51] k=5 E 7/10 - TrL: 0.4911, VaL: 0.4837, Dur: 24271.84s, LR: 1.00e-04
+[2025-06-26 07:08:51] k=5 Saved NEW BEST model (Val Loss: 0.4837) to results_msBERT_replication/best_kmer_model_k5.pth
+[2025-06-26 14:07:06] k=5 E 8/10 - TrL: 0.4876, VaL: 0.4793, Dur: 25094.23s, LR: 1.00e-04
+[2025-06-26 14:07:06] k=5 Saved NEW BEST model (Val Loss: 0.4793) to results_msBERT_replication/best_kmer_model_k5.pth
+[2025-06-26 20:57:01] k=5 E 9/10 - TrL: 0.4818, VaL: 0.4720, Dur: 24595.19s, LR: 1.00e-04
+[2025-06-26 20:57:01] k=5 Saved NEW BEST model (Val Loss: 0.4720) to results_msBERT_replication/best_kmer_model_k5.pth
+[2025-06-27 03:42:53] k=5 E 10/10 - TrL: 0.4768, VaL: 0.4717, Dur: 24352.57s, LR: 1.00e-04
+[2025-06-27 03:42:54] k=5 Saved NEW BEST model (Val Loss: 0.4717) to results_msBERT_replication/best_kmer_model_k5.pth
+[2025-06-27 03:42:54] k=5 Saved final loss plot to results_msBERT_replication/loss_kmer_k5.png
+[2025-06-27 03:42:54] --- k=5 Training Finished/Resumed --- Best Val Loss: 0.4717
+[2025-06-27 03:42:54] 
+--- Processing for k=6 ---
+[2025-06-27 03:42:54] --- Training KmerTransformer (k=6) from epoch 0 to 9 ---
+[2025-06-27 10:22:06] k=6 E 1/10 - TrL: 0.6420, VaL: 0.5701, Dur: 23951.45s, LR: 1.00e-04
+[2025-06-27 10:22:06] k=6 Saved NEW BEST model (Val Loss: 0.5701) to results_msBERT_replication/best_kmer_model_k6.pth
+[2025-06-27 17:45:24] k=6 E 2/10 - TrL: 0.5609, VaL: 0.5480, Dur: 26597.69s, LR: 1.00e-04
+[2025-06-27 17:45:24] k=6 Saved NEW BEST model (Val Loss: 0.5480) to results_msBERT_replication/best_kmer_model_k6.pth
+[2025-06-28 00:26:34] k=6 E 3/10 - TrL: 0.5364, VaL: 0.5340, Dur: 24070.20s, LR: 1.00e-04
+[2025-06-28 00:26:34] k=6 Saved NEW BEST model (Val Loss: 0.5340) to results_msBERT_replication/best_kmer_model_k6.pth
+[2025-06-28 07:07:03] k=6 E 4/10 - TrL: 0.5237, VaL: 0.5161, Dur: 24028.94s, LR: 1.00e-04
+[2025-06-28 07:07:03] k=6 Saved NEW BEST model (Val Loss: 0.5161) to results_msBERT_replication/best_kmer_model_k6.pth
+[2025-06-28 13:52:28] k=6 E 5/10 - TrL: 0.5145, VaL: 0.5101, Dur: 24325.46s, LR: 1.00e-04
+[2025-06-28 13:52:29] k=6 Saved NEW BEST model (Val Loss: 0.5101) to results_msBERT_replication/best_kmer_model_k6.pth
+[2025-06-28 21:11:48] k=6 E 6/10 - TrL: 0.5072, VaL: 0.5040, Dur: 26359.60s, LR: 1.00e-04
+[2025-06-28 21:11:48] k=6 Saved NEW BEST model (Val Loss: 0.5040) to results_msBERT_replication/best_kmer_model_k6.pth
+[2025-06-29 03:52:56] k=6 E 7/10 - TrL: 0.4982, VaL: 0.4979, Dur: 24068.22s, LR: 1.00e-04
+[2025-06-29 03:52:57] k=6 Saved NEW BEST model (Val Loss: 0.4979) to results_msBERT_replication/best_kmer_model_k6.pth
+[2025-06-29 10:34:03] k=6 E 8/10 - TrL: 0.4904, VaL: 0.4895, Dur: 24066.74s, LR: 1.00e-04
+[2025-06-29 10:34:03] k=6 Saved NEW BEST model (Val Loss: 0.4895) to results_msBERT_replication/best_kmer_model_k6.pth
+[2025-06-29 18:21:26] k=6 E 9/10 - TrL: 0.4822, VaL: 0.4897, Dur: 28042.61s, LR: 1.00e-04
+[2025-06-30 01:02:17] k=6 E 10/10 - TrL: 0.4773, VaL: 0.4818, Dur: 24051.29s, LR: 1.00e-04
+[2025-06-30 01:02:17] k=6 Saved NEW BEST model (Val Loss: 0.4818) to results_msBERT_replication/best_kmer_model_k6.pth
+[2025-06-30 01:02:18] k=6 Saved final loss plot to results_msBERT_replication/loss_kmer_k6.png
+[2025-06-30 01:02:18] --- k=6 Training Finished/Resumed --- Best Val Loss: 0.4818
+[2025-06-30 01:02:18] 
+--- Step 5: Evaluating K-mer Ensemble ---
+[2025-06-30 01:02:19] --- Evaluating K-mer Ensemble on Test Set ---
+[2025-06-30 02:33:03] 
+--- K-mer Ensemble Test Results ---
+[2025-06-30 02:33:03] MODEL: msBERT_rep_ensemble
+[2025-06-30 02:33:03] ACC: 0.7833
+[2025-06-30 02:33:03] PREC: 0.8796
+[2025-06-30 02:33:03] REC: 0.6587
+[2025-06-30 02:33:03] SPEC: 0.9090
+[2025-06-30 02:33:03] F1: 0.7533
+[2025-06-30 02:33:03] AUC: 0.8539
+[2025-06-30 02:33:03] TP: 1988
+[2025-06-30 02:33:03] FP: 272
+[2025-06-30 02:33:03] TN: 2718
+[2025-06-30 02:33:03] FN: 1030
+[2025-06-30 02:33:04] Saved CM to results_msBERT_replication/confusion_matrix_kmer_ensemble_counts.png
+[2025-06-30 02:33:04] Saved CM to results_msBERT_replication/confusion_matrix_kmer_ensemble_norm.png
+[2025-06-30 02:33:04] Saved K-mer Ens test results to results_msBERT_replication/test_results_kmer_ensemble.csv
+[2025-06-30 02:33:04] --- msBERT Replication Workflow Completed in 911644.50s (253.23 hrs) ---
