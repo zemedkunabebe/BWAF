@@ -1,0 +1,174 @@
+--- Ablation Log Initialized ---
+[2025-07-09 18:58:11] Log file: results_ablation_studies/ablation_log.txt
+[2025-07-09 18:58:20] --- Starting Ablation & Baseline Experiment Workflow ---
+[2025-07-09 18:58:20] 
+--- Step 1: Loading and Preparing Data for All Experiments ---
+[2025-07-09 18:58:20] Loading sequences from ./data/raw/human_genome_annotation/updated_promoter_features_clean.csv...
+[2025-07-09 18:58:21] Loading sequences from ./data/raw/human_genome_annotation/updated_non_promoter_sequences.csv...
+[2025-07-09 18:58:22] Loading priors from ./data/raw/human_genome_annotation/biological_prior_for_transformer_branch.csv...
+[2025-07-09 18:58:39] WARNING: Precomputed GAT output not found at results_bwaf_final/precomputed_gat_output.pt. GAT-related ablations (A2, A3) will use a zero tensor. Run the main BWAF pipeline first to generate this file.
+[2025-07-09 18:58:39] Ablation Data Split: Train=28040, Val=6008, Test=6008
+[2025-07-09 18:58:39] 
+========================= STARTING EXPERIMENT: A4_Transformer_Only =========================
+[2025-07-09 18:58:39] Resuming A4_Transformer_Only from checkpoint: checkpoint_epoch_009.pth
+[2025-07-09 18:58:39] Resumed from epoch 9. Best Val Loss so far: 0.5827
+[2025-07-09 18:58:39] A4_Transformer_Only training already completed for 10 epochs. Loading best model for evaluation.
+[2025-07-09 18:58:39] --- Evaluating best A4_Transformer_Only model on Test Set ---
+[2025-07-09 19:22:00] --- A4_Transformer_Only Test Results: ACC=0.7124, F1=0.6850, AUC=0.7815 ---
+[2025-07-09 19:22:00] Saved results for A4_Transformer_Only to results_ablation_studies/A4_Transformer_Only/results_A4_Transformer_Only.csv
+[2025-07-09 19:22:00] 
+========================= STARTING EXPERIMENT: A5_Priors_Only =========================
+[2025-07-09 19:22:00] Resuming A5_Priors_Only from checkpoint: checkpoint_epoch_009.pth
+[2025-07-09 19:22:00] Resumed from epoch 9. Best Val Loss so far: 0.0584
+[2025-07-09 19:22:00] A5_Priors_Only training already completed for 10 epochs. Loading best model for evaluation.
+[2025-07-09 19:22:00] --- Evaluating best A5_Priors_Only model on Test Set ---
+[2025-07-09 19:22:00] --- A5_Priors_Only Test Results: ACC=0.9767, F1=0.9763, AUC=0.9970 ---
+[2025-07-09 19:22:00] Saved results for A5_Priors_Only to results_ablation_studies/A5_Priors_Only/results_A5_Priors_Only.csv
+[2025-07-09 19:22:00] 
+========================= STARTING EXPERIMENT: A1_Transformer_Priors =========================
+[2025-07-09 19:22:00] Resuming A1_Transformer_Priors from checkpoint: checkpoint_epoch_006.pth
+[2025-07-09 19:22:00] Resumed from epoch 6. Best Val Loss so far: 0.2085
+[2025-07-09 19:22:00] --- Training A1_Transformer_Priors from epoch 7 to 9 ---
+[2025-07-10 02:46:53] A1_Transformer_Priors E8/10: TrL=0.2112, VaL=0.1789, Dur=26692.28s, LR=5.00e-04
+[2025-07-10 02:46:53] Saved new best A1_Transformer_Priors model (Val Loss: 0.1789).
+[2025-07-10 10:19:34] A1_Transformer_Priors E9/10: TrL=0.1972, VaL=0.1643, Dur=27161.71s, LR=5.00e-04
+[2025-07-10 10:19:34] Saved new best A1_Transformer_Priors model (Val Loss: 0.1643).
+[2025-07-10 17:57:34] A1_Transformer_Priors E10/10: TrL=0.1899, VaL=0.1530, Dur=27479.17s, LR=5.00e-04
+[2025-07-10 17:57:34] Saved new best A1_Transformer_Priors model (Val Loss: 0.1530).
+[2025-07-10 17:57:34] --- Evaluating best A1_Transformer_Priors model on Test Set ---
+[2025-07-10 18:20:26] --- A1_Transformer_Priors Test Results: ACC=0.9419, F1=0.9421, AUC=0.9877 ---
+[2025-07-10 18:20:26] Saved results for A1_Transformer_Priors to results_ablation_studies/A1_Transformer_Priors/results_A1_Transformer_Priors.csv
+[2025-07-10 18:20:26] 
+========================= STARTING EXPERIMENT: A2_GAT_Priors =========================
+[2025-07-10 18:20:26] --- Training A2_GAT_Priors from epoch 0 to 9 ---
+[2025-07-10 18:20:31] A2_GAT_Priors E1/10: TrL=0.6103, VaL=0.5347, Dur=5.21s, LR=5.00e-04
+[2025-07-10 18:20:31] Saved new best A2_GAT_Priors model (Val Loss: 0.5347).
+[2025-07-10 18:20:37] A2_GAT_Priors E2/10: TrL=0.4757, VaL=0.4026, Dur=5.14s, LR=5.00e-04
+[2025-07-10 18:20:37] Saved new best A2_GAT_Priors model (Val Loss: 0.4026).
+[2025-07-10 18:20:42] A2_GAT_Priors E3/10: TrL=0.3913, VaL=0.3296, Dur=5.17s, LR=5.00e-04
+[2025-07-10 18:20:42] Saved new best A2_GAT_Priors model (Val Loss: 0.3296).
+[2025-07-10 18:20:47] A2_GAT_Priors E4/10: TrL=0.3457, VaL=0.2898, Dur=5.12s, LR=5.00e-04
+[2025-07-10 18:20:47] Saved new best A2_GAT_Priors model (Val Loss: 0.2898).
+[2025-07-10 18:20:52] A2_GAT_Priors E5/10: TrL=0.3160, VaL=0.2648, Dur=5.07s, LR=5.00e-04
+[2025-07-10 18:20:52] Saved new best A2_GAT_Priors model (Val Loss: 0.2648).
+[2025-07-10 18:20:57] A2_GAT_Priors E6/10: TrL=0.2967, VaL=0.2447, Dur=5.08s, LR=5.00e-04
+[2025-07-10 18:20:57] Saved new best A2_GAT_Priors model (Val Loss: 0.2447).
+[2025-07-10 18:21:02] A2_GAT_Priors E7/10: TrL=0.2824, VaL=0.2330, Dur=5.13s, LR=5.00e-04
+[2025-07-10 18:21:02] Saved new best A2_GAT_Priors model (Val Loss: 0.2330).
+[2025-07-10 18:21:07] A2_GAT_Priors E8/10: TrL=0.2690, VaL=0.2162, Dur=5.06s, LR=5.00e-04
+[2025-07-10 18:21:07] Saved new best A2_GAT_Priors model (Val Loss: 0.2162).
+[2025-07-10 18:21:12] A2_GAT_Priors E9/10: TrL=0.2488, VaL=0.1985, Dur=4.87s, LR=5.00e-04
+[2025-07-10 18:21:12] Saved new best A2_GAT_Priors model (Val Loss: 0.1985).
+[2025-07-10 18:21:17] A2_GAT_Priors E10/10: TrL=0.2405, VaL=0.1897, Dur=4.57s, LR=5.00e-04
+[2025-07-10 18:21:17] Saved new best A2_GAT_Priors model (Val Loss: 0.1897).
+[2025-07-10 18:21:17] --- Evaluating best A2_GAT_Priors model on Test Set ---
+[2025-07-10 18:21:17] --- A2_GAT_Priors Test Results: ACC=0.9404, F1=0.9369, AUC=0.9850 ---
+[2025-07-10 18:21:17] Saved results for A2_GAT_Priors to results_ablation_studies/A2_GAT_Priors/results_A2_GAT_Priors.csv
+[2025-07-10 18:21:17] 
+========================= STARTING EXPERIMENT: A3_Simple_Concat =========================
+[2025-07-10 18:21:17] --- Training A3_Simple_Concat from epoch 0 to 9 ---
+[2025-07-11 01:49:39] A3_Simple_Concat E1/10: TrL=0.5537, VaL=0.4762, Dur=26901.83s, LR=5.00e-04
+[2025-07-11 01:49:39] Saved new best A3_Simple_Concat model (Val Loss: 0.4762).
+[2025-07-11 09:18:28] A3_Simple_Concat E2/10: TrL=0.4426, VaL=0.3860, Dur=26928.92s, LR=5.00e-04
+[2025-07-11 09:18:28] Saved new best A3_Simple_Concat model (Val Loss: 0.3860).
+[2025-07-11 18:38:08] A3_Simple_Concat E3/10: TrL=0.3670, VaL=0.3394, Dur=33579.33s, LR=5.00e-04
+[2025-07-11 18:38:08] Saved new best A3_Simple_Concat model (Val Loss: 0.3394).
+[2025-07-12 02:02:21] A3_Simple_Concat E4/10: TrL=0.3184, VaL=0.2924, Dur=26653.49s, LR=5.00e-04
+[2025-07-12 02:02:21] Saved new best A3_Simple_Concat model (Val Loss: 0.2924).
+[2025-07-12 09:28:47] A3_Simple_Concat E5/10: TrL=0.2756, VaL=0.2461, Dur=26785.79s, LR=5.00e-04
+[2025-07-12 09:28:47] Saved new best A3_Simple_Concat model (Val Loss: 0.2461).
+[2025-07-12 18:33:36] A3_Simple_Concat E6/10: TrL=0.2530, VaL=0.2158, Dur=32688.84s, LR=5.00e-04
+[2025-07-12 18:33:36] Saved new best A3_Simple_Concat model (Val Loss: 0.2158).
+[2025-07-13 01:57:51] A3_Simple_Concat E7/10: TrL=0.2318, VaL=0.2728, Dur=26655.40s, LR=5.00e-04
+[2025-07-13 09:25:41] A3_Simple_Concat E8/10: TrL=0.2190, VaL=0.1675, Dur=26869.51s, LR=5.00e-04
+[2025-07-13 09:25:41] Saved new best A3_Simple_Concat model (Val Loss: 0.1675).
+[2025-07-13 16:51:32] A3_Simple_Concat E9/10: TrL=0.2048, VaL=0.1852, Dur=26751.82s, LR=5.00e-04
+[2025-07-14 00:15:45] A3_Simple_Concat E10/10: TrL=0.1907, VaL=0.1600, Dur=26652.57s, LR=5.00e-04
+[2025-07-14 00:15:45] Saved new best A3_Simple_Concat model (Val Loss: 0.1600).
+[2025-07-14 00:15:45] --- Evaluating best A3_Simple_Concat model on Test Set ---
+[2025-07-14 00:38:38] --- A3_Simple_Concat Test Results: ACC=0.9371, F1=0.9391, AUC=0.9888 ---
+[2025-07-14 00:38:39] Saved results for A3_Simple_Concat to results_ablation_studies/A3_Simple_Concat/results_A3_Simple_Concat.csv
+[2025-07-14 00:38:39] 
+--- All Ablation/Baseline Experiments Complete. Summary saved to results_ablation_studies/ablation_baselines_summary.csv ---
+[2025-07-14 00:38:39] --- ABLATION/BASELINE WORKFLOW FAILED ---
+[2025-07-14 00:38:39] ERROR: KeyError: 'auc'
+[2025-07-14 00:38:39] Traceback:
+Traceback (most recent call last):
+  File "/tmp/ipykernel_3565/3837590646.py", line 83, in <module>
+    print(summary_df.sort_values(by='auc', ascending=False))
+  File "/home/zed/miniconda3/envs/my_env/lib/python3.10/site-packages/pandas/core/frame.py", line 7189, in sort_values
+    k = self._get_label_or_level_values(by[0], axis=axis)
+  File "/home/zed/miniconda3/envs/my_env/lib/python3.10/site-packages/pandas/core/generic.py", line 1911, in _get_label_or_level_values
+    raise KeyError(key)
+KeyError: 'auc'
+
+[2025-07-14 07:31:00] --- Starting Ablation & Baseline Experiment Workflow ---
+[2025-07-14 07:31:00] 
+--- Step 1: Loading and Preparing Data for All Experiments ---
+[2025-07-14 07:31:00] Loading sequences from ./data/raw/human_genome_annotation/updated_promoter_features_clean.csv...
+[2025-07-14 07:31:01] Loading sequences from ./data/raw/human_genome_annotation/updated_non_promoter_sequences.csv...
+[2025-07-14 07:31:02] Loading priors from ./data/raw/human_genome_annotation/biological_prior_for_transformer_branch.csv...
+[2025-07-14 07:31:18] WARNING: Precomputed GAT output not found at results_bwaf_final/precomputed_gat_output.pt. GAT-related ablations (A2, A3) will use a zero tensor.
+[2025-07-14 07:31:18] Ablation Data Split: Train=28040, Val=6008, Test=6008
+[2025-07-14 07:31:18] 
+========================= STARTING EXPERIMENT: A4_Transformer_Only =========================
+[2025-07-14 07:31:18] --- ABLATION/BASELINE WORKFLOW FAILED ---
+[2025-07-14 07:31:18] ERROR: TypeError: ReduceLROnPlateau.__init__() got an unexpected keyword argument 'verbose'
+[2025-07-14 07:31:18] Traceback:
+Traceback (most recent call last):
+  File "/tmp/ipykernel_3565/3162985620.py", line 74, in <module>
+    results = run_experiment(name, model, train_loader, val_loader, test_loader,
+  File "/tmp/ipykernel_3565/2287677466.py", line 32, in run_experiment
+    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', factor=0.2, patience=3, verbose=False)
+TypeError: ReduceLROnPlateau.__init__() got an unexpected keyword argument 'verbose'
+
+[2025-07-14 07:32:08] --- Starting Ablation & Baseline Experiment Workflow ---
+[2025-07-14 07:32:08] 
+--- Step 1: Loading and Preparing Data for All Experiments ---
+[2025-07-14 07:32:08] Loading sequences from ./data/raw/human_genome_annotation/updated_promoter_features_clean.csv...
+[2025-07-14 07:32:09] Loading sequences from ./data/raw/human_genome_annotation/updated_non_promoter_sequences.csv...
+[2025-07-14 07:32:10] Loading priors from ./data/raw/human_genome_annotation/biological_prior_for_transformer_branch.csv...
+[2025-07-14 07:32:26] WARNING: Precomputed GAT output not found at results_bwaf_final/precomputed_gat_output.pt. GAT-related ablations (A2, A3) will use a zero tensor.
+[2025-07-14 07:32:26] Ablation Data Split: Train=28040, Val=6008, Test=6008
+[2025-07-14 07:32:26] 
+========================= STARTING EXPERIMENT: A4_Transformer_Only =========================
+[2025-07-14 07:32:26] Resuming A4_Transformer_Only from checkpoint: checkpoint_epoch_009.pth
+[2025-07-14 07:32:26] Resumed from epoch 9. Best Val Loss so far: 0.5827
+[2025-07-14 07:32:26] A4_Transformer_Only training already completed. Loading best model for evaluation.
+[2025-07-14 07:32:26] --- Evaluating best A4_Transformer_Only model on Test Set ---
+[2025-07-14 07:56:19] --- A4_Transformer_Only Test Results: ACC=0.7124, F1=0.6850, AUC=0.7815 ---
+[2025-07-14 07:56:19] Saved results for A4_Transformer_Only to results_ablation_studies/A4_Transformer_Only/results_A4_Transformer_Only.csv
+[2025-07-14 07:56:19] 
+========================= STARTING EXPERIMENT: A5_Priors_Only =========================
+[2025-07-14 07:56:19] Resuming A5_Priors_Only from checkpoint: checkpoint_epoch_009.pth
+[2025-07-14 07:56:19] Resumed from epoch 9. Best Val Loss so far: 0.0584
+[2025-07-14 07:56:19] A5_Priors_Only training already completed. Loading best model for evaluation.
+[2025-07-14 07:56:19] --- Evaluating best A5_Priors_Only model on Test Set ---
+[2025-07-14 07:56:19] --- A5_Priors_Only Test Results: ACC=0.9767, F1=0.9763, AUC=0.9970 ---
+[2025-07-14 07:56:19] Saved results for A5_Priors_Only to results_ablation_studies/A5_Priors_Only/results_A5_Priors_Only.csv
+[2025-07-14 07:56:19] 
+========================= STARTING EXPERIMENT: A1_Transformer_Priors =========================
+[2025-07-14 07:56:19] Resuming A1_Transformer_Priors from checkpoint: checkpoint_epoch_009.pth
+[2025-07-14 07:56:19] Resumed from epoch 9. Best Val Loss so far: 0.1530
+[2025-07-14 07:56:19] A1_Transformer_Priors training already completed. Loading best model for evaluation.
+[2025-07-14 07:56:19] --- Evaluating best A1_Transformer_Priors model on Test Set ---
+[2025-07-14 08:19:39] --- A1_Transformer_Priors Test Results: ACC=0.9419, F1=0.9421, AUC=0.9877 ---
+[2025-07-14 08:19:39] Saved results for A1_Transformer_Priors to results_ablation_studies/A1_Transformer_Priors/results_A1_Transformer_Priors.csv
+[2025-07-14 08:19:39] 
+========================= STARTING EXPERIMENT: A2_GAT_Priors =========================
+[2025-07-14 08:19:39] Resuming A2_GAT_Priors from checkpoint: checkpoint_epoch_009.pth
+[2025-07-14 08:19:39] Resumed from epoch 9. Best Val Loss so far: 0.1897
+[2025-07-14 08:19:39] A2_GAT_Priors training already completed. Loading best model for evaluation.
+[2025-07-14 08:19:39] --- Evaluating best A2_GAT_Priors model on Test Set ---
+[2025-07-14 08:19:39] --- A2_GAT_Priors Test Results: ACC=0.9404, F1=0.9369, AUC=0.9850 ---
+[2025-07-14 08:19:39] Saved results for A2_GAT_Priors to results_ablation_studies/A2_GAT_Priors/results_A2_GAT_Priors.csv
+[2025-07-14 08:19:39] 
+========================= STARTING EXPERIMENT: A3_Simple_Concat =========================
+[2025-07-14 08:19:39] Resuming A3_Simple_Concat from checkpoint: checkpoint_epoch_009.pth
+[2025-07-14 08:19:39] Resumed from epoch 9. Best Val Loss so far: 0.1600
+[2025-07-14 08:19:39] A3_Simple_Concat training already completed. Loading best model for evaluation.
+[2025-07-14 08:19:39] --- Evaluating best A3_Simple_Concat model on Test Set ---
+[2025-07-14 08:42:50] --- A3_Simple_Concat Test Results: ACC=0.9371, F1=0.9391, AUC=0.9888 ---
+[2025-07-14 08:42:50] Saved results for A3_Simple_Concat to results_ablation_studies/A3_Simple_Concat/results_A3_Simple_Concat.csv
+[2025-07-14 08:42:50] 
+--- All Ablation/Baseline Experiments Complete. Summary saved to results_ablation_studies/ablation_baselines_summary.csv ---
