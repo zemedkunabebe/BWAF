@@ -1,23 +1,116 @@
-# BWAF
+# BWAF-Net: Biologically Weighted Attention Fusion for Promoter Identification
 
-# Commands **To download the human genome DNA sequence (FASTA format, GRCh38 primary assembly)**
-1.  **To download the human genome DNA sequence (FASTA format, GRCh38 primary assembly):**
-    ```bash
-    wget ftp://ftp.ensembl.org/pub/release-110/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz
-    ```
+This repository contains the complete source code and experimental notebooks for the Master's thesis titled: *"BWAF-Net: Enhanced Human Promoter Identification via Biologically Weighted Attention Fusion of Transformer and Graph Attention Networks"*.
 
-2.  **To download the human gene annotation (GTF format, GRCh38 release 110):**
-    ```bash
-    wget ftp://ftp.ensembl.org/pub/release-110/gtf/homo_sapiens/Homo_sapiens.GRCh38.110.gtf.gz
-    ```
+The project introduces **BWAF-Net**, a novel multi-modal deep learning framework designed to accurately identify human gene promoter regions by integrating three distinct biological data types.
 
-**Explanation of the commands:**
+## Features
 
-*   `wget`: A command-line utility for downloading files from the web.
-*   `ftp://ftp.ensembl.org/...`: The FTP URL pointing to the specific files on the Ensembl server.
-    *   `pub/release-110/`: Indicates these files are from Ensembl release 110.
-    *   `fasta/homo_sapiens/dna/`: Path for DNA sequences in FASTA format for Homo sapiens.
-    *   `gtf/homo_sapiens/`: Path for gene annotations in GTF format for Homo sapiens.
-    *   `Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz`: The actual FASTA file for the primary genome assembly.
-    *   `Homo_sapiens.GRCh38.110.gtf.gz`: The actual GTF annotation file for release 110 of the GRCh38 assembly.
-*   `.gz`: Indicates that the files are compressed using gzip. You would typically decompress them using `gunzip <filename.gz>` after downloading.
+*   **Multi-Modal Architecture:** Integrates a Transformer for DNA sequence analysis and a Graph Attention Network (GAT) for gene regulatory network context.
+*   **Novel Fusion Mechanism:** Implements a **Biologically Weighted Attention Fusion (BWAF)** layer that uses explicit biological priors (regulatory motif counts) to dynamically guide the fusion of learned features.
+*   **Reproducible Workflow:** Includes all code for data preprocessing, model training, a state-of-the-art baseline replication, ablation studies, and interpretability analysis.
+*   **Comprehensive Documentation:** Jupyter notebooks are provided to explore the data, train the models, and analyze the results, making the entire research process transparent.
+
+## Directory Structure
+
+The repository is organized as follows:
+
+```
+.
+├── data/
+│   └── raw/
+│       ├── Human_Genome_Sequence_Data/  # Raw promoter/non-promoter sequences
+│       ├── Biological_Prior_Data/       # Curated motif counts
+│       └── Gene_Interaction_Network_Data/ # Raw GRAND network data
+├── Data Exploration, Feture Extraction and Preprocessing/ # Notebooks for data prep
+├── results_bwaf_v3/                    # Outputs from the main BWAF model training
+├── results_msBERT_replication/         # Outputs from the baseline replication
+├── results_ablation_studies/           # Outputs from the ablation studies
+├── results_xai/                        # Outputs from the interpretability analysis
+├── Trainin Code BWAF.ipynb             # Main notebook for training the BWAF model
+├── Msber_replication_training.ipynb    # Notebook for the baseline replication
+├── ablation_studies_training.ipynb     # Notebook for the ablation studies
+├── Interpretability and Explainability (XAI) Analysis.ipynb
+```
+
+## Setup and Installation
+
+### 1. Environment Setup
+
+It is highly recommended to use a virtual environment to manage dependencies.
+
+```bash
+# Create and activate a virtual environment
+python3 -m venv bms_env
+source bms_env/bin/activate  # On Windows use: bms_env\Scripts\activate
+
+# Upgrade pip
+pip install --upgrade pip
+```
+
+### 2. Install Python Dependencies
+
+Install the required Python packages using pip. This project requires a version of NumPy older than 2.0 to ensure compatibility with all libraries, especially SHAP.
+
+```bash
+# Install core data science and deep learning libraries
+pip install numpy<2.0 pandas matplotlib seaborn scikit-learn scipy tqdm notebook ipykernel
+
+# Install PyTorch (CPU version). For GPU support, see the official PyTorch website.
+pip install torch torchvision torchaudio
+
+# Install PyTorch Geometric and its dependencies
+pip install torch_geometric
+```
+**Note:** If you encounter issues with PyTorch Geometric, you may need to install its dependencies manually. Please refer to the official [PyTorch Geometric installation guide](https://pytorch-geometric.readthedocs.io/en/latest/install/installation.html).
+
+### 3. Download Raw Data
+
+The model requires three types of raw data. The scripts are configured to read from the `data/raw/` directory.
+
+**A. Human Genome and Annotation Data**
+Create the directory `data/raw/Human_Genome_Sequence_Data/` and download the necessary files into it.
+
+```bash
+# Download the human genome primary assembly (FASTA format)
+wget -P data/raw/Human_Genome_Sequence_Data/ ftp://ftp.ensembl.org/pub/release-110/fasta/homo_sapiens/dna/Homo_sapiens.GRCh_38.dna.primary_assembly.fa.gz
+
+# Download the human gene annotation file (GTF format)
+wget -P data/raw/Human_Genome_Sequence_Data/ ftp://ftp.ensembl.org/pub/release-110/gtf/homo_sapiens/Homo_sapiens.GRCh_38.110.gtf.gz
+
+# Decompress the files
+gunzip data/raw/Human_Genome_Sequence_Data/*.gz
+```
+
+**B. Gene Interaction Network Data (GRAND)**
+Create the directory `data/raw/Gene_Interaction_Network_Data/GRAND_networks/` and download the 36 tissue-specific network files. This can be done by running the download script within the `GAT Data Exploration.ipynb` notebook or manually.
+
+**C. Other Curated Data**
+The other necessary curated files (`Promoter_Sequence.csv`, `Non_Promoter_Sequence.csv`, `biological_prior_for_transformer_branch.csv`) are generated by the notebooks in the `Data Exploration, Feture Extraction and Preprocessing/` directory.
+
+## How to Run
+
+The notebooks should be run in a logical sequence, as some generate data needed by others.
+
+1.  **Data Preparation (Optional but Recommended):**
+    *   Run the notebooks in `Data Exploration, Feture Extraction and Preprocessing/` to understand the data curation and preprocessing steps. These notebooks generate the final `Promoter_Sequence.csv`, `Non_Promoter_Sequence.csv`, and `biological_prior_for_transformer_branch.csv` files.
+
+2.  **Train the Main BWAF Model:**
+    *   Run `Trainin Code BWAF.ipynb`. This notebook will load the curated data, preprocess the network data, train the full BWAF model, save the best checkpoint, and generate the final pre-computed GAT embeddings in `results_bwaf_v3/`.
+
+3.  **Train the Baseline and Ablation Models:**
+    *   Run `Msber_replication_training.ipynb` to train the four k-mer models and evaluate the ensemble baseline.
+    *   Run `ablation_studies_training.ipynb` to train all five ablated models. This notebook relies on the pre-computed GAT embeddings generated by the main training notebook.
+
+4.  **Perform Interpretability Analysis:**
+    *   Run `Interpretability and Explainability (XAI) Analysis.ipynb` to generate the SHAP and correlation analyses on the trained BWAF model.
+
+## Citation
+
+If you use this work, please cite the thesis:
+
+> [Zemedkun Abebe]. (2025). *BWAF-Net: Enhanced Human Promoter Identification via Biologically Weighted Attention Fusion of Transformer and Graph Attention Networks*.
+>
+> [ADDIS ABABA INSTITUTE OF TECHNOLOGY].
+
+```
