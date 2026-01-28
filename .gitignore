@@ -1,1 +1,7 @@
-.ipynb_checkpoints/
+# Model weights & tensors
+*.pth
+*.pt
+
+# Results & experiments
+results_*/
+graph_data.pt

@@ -1,116 +1,122 @@
-# BWAF-Net: Biologically Weighted Attention Fusion for Promoter Identification
+# BWAF-Net: A Prior-Guided Attention Framework for Multi-Modal Data Fusion in Computational Genomics
 
-This repository contains the complete source code and experimental notebooks for the Master's thesis titled: *"BWAF-Net: Enhanced Human Promoter Identification via Biologically Weighted Attention Fusion of Transformer and Graph Attention Networks"*.
+This repository contains the complete source code, datasets, and experimental notebooks for the paper: *"BWAF-Net: A Prior-Guided Attention Framework for Multi-Modal Data Fusion in Computational Genomics"*.
 
-The project introduces **BWAF-Net**, a novel multi-modal deep learning framework designed to accurately identify human gene promoter regions by integrating three distinct biological data types.
+The project introduces **BWAF-Net**, a novel multi-modal deep learning framework that accurately identifies human gene promoter regions. Our key finding is the identification and solution for "Modality Collapse," a common failure mode in multi-modal architectures. BWAF-Net uses a novel **knowledge-as-a-controller** fusion mechanism where biological priors explicitly gate information flow from deep encoders, leading to a significant performance increase over standard fusion methods.
 
-## Features
+### Key Features
 
-*   **Multi-Modal Architecture:** Integrates a Transformer for DNA sequence analysis and a Graph Attention Network (GAT) for gene regulatory network context.
-*   **Novel Fusion Mechanism:** Implements a **Biologically Weighted Attention Fusion (BWAF)** layer that uses explicit biological priors (regulatory motif counts) to dynamically guide the fusion of learned features.
-*   **Reproducible Workflow:** Includes all code for data preprocessing, model training, a state-of-the-art baseline replication, ablation studies, and interpretability analysis.
-*   **Comprehensive Documentation:** Jupyter notebooks are provided to explore the data, train the models, and analyze the results, making the entire research process transparent.
+*   **Multi-Modal Architecture:** Integrates a Transformer for DNA sequence grammar and a Graph Attention Network (GAT) for gene regulatory context.
+*   **Novel Fusion Mechanism:** Implements a **Biologically Weighted Attention Fusion (BWAF)** layer that uses explicit biological priors (motif counts) to dynamically guide the fusion process, overcoming Modality Collapse.
+*   **Rigorous Benchmark:** All experiments are performed on a challenging benchmark using a strict chromosome-holdout split and dinucleotide-shuffled negative controls to prevent data leakage and test for true grammatical understanding.
+*   **Fully Reproducible Workflow:** Includes all code for data generation, model training, ablation studies, and interpretability analysis to ensure the entire research process is transparent.
 
-## Directory Structure
-
-The repository is organized as follows:
+### Repository Structure
 
 ```
 .
-├── data/
-│   └── raw/
-│       ├── Human_Genome_Sequence_Data/  # Raw promoter/non-promoter sequences
-│       ├── Biological_Prior_Data/       # Curated motif counts
-│       └── Gene_Interaction_Network_Data/ # Raw GRAND network data
-├── Data Exploration, Feture Extraction and Preprocessing/ # Notebooks for data prep
-├── results_bwaf_v3/                    # Outputs from the main BWAF model training
-├── results_msBERT_replication/         # Outputs from the baseline replication
-├── results_ablation_studies/           # Outputs from the ablation studies
-├── results_xai/                        # Outputs from the interpretability analysis
-├── Trainin Code BWAF.ipynb             # Main notebook for training the BWAF model
-├── Msber_replication_training.ipynb    # Notebook for the baseline replication
-├── ablation_studies_training.ipynb     # Notebook for the ablation studies
-├── Interpretability and Explainability (XAI) Analysis.ipynb
+├── LICENSE
+├── README.md
+├── Final_Aligned_Dataset.csv    # Pre-processed dataset for training
+├── graph_data.pt                # Pre-processed graph data for the GAT
+│
+├── Data Exploration, Feture Extraction and Preprocessing/
+│   ├── Genome Data Exploration.ipynb
+│   ├── Genome Feture Extraction.ipynb
+│   ├── GAT Data Exploration.ipynb
+│   └── GAT Data Preprocessing.ipynb
+│
+├── BWAF-Net-train.ipynb                 # Notebook to train the main BWAF-Net model
+├── baseline_cross_attention.ipynb     # Notebook to train the cross-attention baseline
+├── ablation_training.ipynb              # Notebook to train all ablation models
+├── interpretability.ipynb               # Notebook for XAI on the final BWAF-Net model
+├── interpret_all_ablations.ipynb        # Notebook for comparative bias analysis
+│
+└── results/ (contains all generated outputs)
+    ├── results_bwaf/
+    ├── results_fusion_baselines/
+    ├── results_ablation_final2/
+    ├── results_xai/
+    └── results_xai_ablation/
 ```
 
-## Setup and Installation
+### Setup and Installation
 
-### 1. Environment Setup
+#### 1. Create a Virtual Environment
 
-It is highly recommended to use a virtual environment to manage dependencies.
+It is highly recommended to use a virtual environment (like `venv` or `conda`) to manage dependencies.
 
 ```bash
 # Create and activate a virtual environment
-python3 -m venv bms_env
-source bms_env/bin/activate  # On Windows use: bms_env\Scripts\activate
-
-# Upgrade pip
-pip install --upgrade pip
+python3 -m venv bwaf_env
+source bwaf_env/bin/activate  # On Windows use: bwaf_env\Scripts\activate
 ```
 
-### 2. Install Python Dependencies
+#### 2. Create `requirements.txt` and Install Dependencies
 
-Install the required Python packages using pip. This project requires a version of NumPy older than 2.0 to ensure compatibility with all libraries, especially SHAP.
+The necessary packages are listed in the paper. For easy installation, create a `requirements.txt` file with the following content:
 
+**`requirements.txt`:**
+```
+numpy<2.0
+pandas
+matplotlib
+seaborn
+scikit-learn
+scipy
+tqdm
+notebook
+ipykernel
+torch
+torchvision
+torchaudio
+torch_geometric
+shap
+```
+
+Now, install all packages from the file:
 ```bash
-# Install core data science and deep learning libraries
-pip install numpy<2.0 pandas matplotlib seaborn scikit-learn scipy tqdm notebook ipykernel
-
-# Install PyTorch (CPU version). For GPU support, see the official PyTorch website.
-pip install torch torchvision torchaudio
-
-# Install PyTorch Geometric and its dependencies
-pip install torch_geometric
+pip install -r requirements.txt
 ```
-**Note:** If you encounter issues with PyTorch Geometric, you may need to install its dependencies manually. Please refer to the official [PyTorch Geometric installation guide](https://pytorch-geometric.readthedocs.io/en/latest/install/installation.html).
+**Note:** For GPU support, please follow the official installation instructions for PyTorch and PyTorch Geometric for your specific CUDA version.
 
-### 3. Download Raw Data
+### How to Reproduce Results
 
-The model requires three types of raw data. The scripts are configured to read from the `data/raw/` directory.
+You can reproduce our results using two paths: a quick path using pre-processed data, or a full path that regenerates everything from scratch.
 
-**A. Human Genome and Annotation Data**
-Create the directory `data/raw/Human_Genome_Sequence_Data/` and download the necessary files into it.
+#### Path A: Quick Reproduction (Recommended)
 
-```bash
-# Download the human genome primary assembly (FASTA format)
-wget -P data/raw/Human_Genome_Sequence_Data/ ftp://ftp.ensembl.org/pub/release-110/fasta/homo_sapiens/dna/Homo_sapiens.GRCh_38.dna.primary_assembly.fa.gz
+This path uses the provided pre-processed data to train the models and generate all results.
 
-# Download the human gene annotation file (GTF format)
-wget -P data/raw/Human_Genome_Sequence_Data/ ftp://ftp.ensembl.org/pub/release-110/gtf/homo_sapiens/Homo_sapiens.GRCh_38.110.gtf.gz
+1.  **Train the Main BWAF-Net Model:**
+    *   Run the `BWAF-Net-train.ipynb` notebook. This will train the model and save the best checkpoint.
 
-# Decompress the files
-gunzip data/raw/Human_Genome_Sequence_Data/*.gz
-```
+2.  **Train Baselines and Ablation Models:**
+    *   Run `baseline_cross_attention.ipynb` to train the SOTA fusion baseline.
+    *   Run `ablation_training.ipynb` to train all five ablation models.
 
-**B. Gene Interaction Network Data (GRAND)**
-Create the directory `data/raw/Gene_Interaction_Network_Data/GRAND_networks/` and download the 36 tissue-specific network files. This can be done by running the download script within the `GAT Data Exploration.ipynb` notebook or manually.
+3.  **Generate Interpretability Figures:**
+    *   Run `interpretability.ipynb` to analyze the trained BWAF-Net model.
+    *   Run `interpret_all_ablations.ipynb` to generate the comparative bias analysis plots.
 
-**C. Other Curated Data**
-The other necessary curated files (`Promoter_Sequence.csv`, `Non_Promoter_Sequence.csv`, `biological_prior_for_transformer_branch.csv`) are generated by the notebooks in the `Data Exploration, Feture Extraction and Preprocessing/` directory.
+#### Path B: Full Data Regeneration (Optional)
 
-## How to Run
+This path regenerates the `Final_Aligned_Dataset.csv` and `graph_data.pt` files from raw public data. This is not required to verify the main results.
 
-The notebooks should be run in a logical sequence, as some generate data needed by others.
+1.  **Download Raw Data:** Follow the download instructions in the `Genome Data Exploration.ipynb` and `GAT Data Exploration.ipynb` notebooks to fetch the required genome, annotation, and network files.
+2.  **Run Preprocessing Notebooks:** Execute the notebooks in the `Data Exploration, Feture Extraction and Preprocessing/` directory in order to regenerate the final dataset files.
+3.  **Follow Path A:** Once the data files are regenerated, follow the steps in "Path A" to train the models.
 
-1.  **Data Preparation (Optional but Recommended):**
-    *   Run the notebooks in `Data Exploration, Feture Extraction and Preprocessing/` to understand the data curation and preprocessing steps. These notebooks generate the final `Promoter_Sequence.csv`, `Non_Promoter_Sequence.csv`, and `biological_prior_for_transformer_branch.csv` files.
+### Note on Methodology: Graph Data Construction
 
-2.  **Train the Main BWAF Model:**
-    *   Run `Trainin Code BWAF.ipynb`. This notebook will load the curated data, preprocess the network data, train the full BWAF model, save the best checkpoint, and generate the final pre-computed GAT embeddings in `results_bwaf_v3/`.
+For full transparency, we note a limitation in our graph construction methodology. The graph features and structure (`graph_data.pt`) were created using statistics (min/max for scaling, mean/std for edge thresholding) calculated from the entire dataset *before* the chromosome-holdout split. This constitutes a form of data leakage.
 
-3.  **Train the Baseline and Ablation Models:**
-    *   Run `Msber_replication_training.ipynb` to train the four k-mer models and evaluate the ensemble baseline.
-    *   Run `ablation_studies_training.ipynb` to train all five ablated models. This notebook relies on the pre-computed GAT embeddings generated by the main training notebook.
+However, our interpretability analysis (see `interpretability.ipynb`) reveals a key finding: the final BWAF-Net model learns to almost completely ignore the graph modality by setting its attention gate (`α_graph`) to near zero. This suggests the model correctly identified this modality as non-informative for this specific benchmark and effectively mitigated the impact of the leakage on its own performance. While this leakage may have slightly inflated the performance of the baseline models that use the graph, our central conclusion about Modality Collapse and the effectiveness of the BWAF gating mechanism remains robust.
 
-4.  **Perform Interpretability Analysis:**
-    *   Run `Interpretability and Explainability (XAI) Analysis.ipynb` to generate the SHAP and correlation analyses on the trained BWAF model.
+### Citation
 
-## Citation
+If you use this work, please cite our paper:
 
-If you use this work, please cite the thesis:
-
-> [Zemedkun Abebe]. (2025). *BWAF-Net: Enhanced Human Promoter Identification via Biologically Weighted Attention Fusion of Transformer and Graph Attention Networks*.
+> Zemedkun Abebe Debela and Adane Mamuye. (2025). *BWAF-Net: A Prior-Guided Attention Framework for Multi-Modal Data Fusion in Computational Genomics*. IEEE/ACM Transactions on Computational Biology and Bioinformatics.
 >
-> [ADDIS ABABA INSTITUTE OF TECHNOLOGY].
-
-```
+> *(A BibTeX entry will be provided upon publication.)*
