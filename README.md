@@ -111,6 +111,6 @@ This path regenerates the `Final_Aligned_Dataset.csv` and `graph_data.pt` files 
 
 If you use this work, please cite our paper:
 
-> Zemedkun Abebe Debela and Adane Mamuye. (2025). *BWAF-Net: A Prior-Guided Attention Framework for Multi-Modal Data Fusion in Computational Genomics*. IEEE/ACM Transactions on Computational Biology and Bioinformatics.
+> Zemedkun Abebe Debela and Adane Mamuye. (2026). *BWAF-Net: A Prior-Guided Attention Framework for Multi-Modal Data Fusion in Computational Genomics*. IEEE/ACM Transactions on Computational Biology and Bioinformatics.
 >
 > *(A BibTeX entry will be provided upon publication.)*
