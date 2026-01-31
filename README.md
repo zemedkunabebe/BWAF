@@ -107,12 +107,6 @@ This path regenerates the `Final_Aligned_Dataset.csv` and `graph_data.pt` files 
 2.  **Run Preprocessing Notebooks:** Execute the notebooks in the `Data Exploration, Feture Extraction and Preprocessing/` directory in order to regenerate the final dataset files.
 3.  **Follow Path A:** Once the data files are regenerated, follow the steps in "Path A" to train the models.
 
-### Note on Methodology: Graph Data Construction
-
-For full transparency, we note a limitation in our graph construction methodology. The graph features and structure (`graph_data.pt`) were created using statistics (min/max for scaling, mean/std for edge thresholding) calculated from the entire dataset *before* the chromosome-holdout split. This constitutes a form of data leakage.
-
-However, our interpretability analysis (see `interpretability.ipynb`) reveals a key finding: the final BWAF-Net model learns to almost completely ignore the graph modality by setting its attention gate (`α_graph`) to near zero. This suggests the model correctly identified this modality as non-informative for this specific benchmark and effectively mitigated the impact of the leakage on its own performance. While this leakage may have slightly inflated the performance of the baseline models that use the graph, our central conclusion about Modality Collapse and the effectiveness of the BWAF gating mechanism remains robust.
-
 ### Citation
 
 If you use this work, please cite our paper:
